@@ -1,6 +1,8 @@
 Following GCP documentation: 
-https://cloud.google.com/tasks/docs/add-task-queue
-https://cloud.google.com/tasks/docs/creating-http-target-tasks
+[GCP documentation for creating a task queue](https://cloud.google.com/tasks/docs/add-task-queue)
+[GCP documentation for creating a target task](https://cloud.google.com/tasks/docs/creating-http-target-tasks)
+[ChatGPT chat](https://chatgpt.com/share/67dab6c7-f3d0-800c-8525-b3034b64e09e)
+[Stackoverflow about docker platform on M1](https://stackoverflow.com/questions/55662222/container-failed-to-start-failed-to-start-and-then-listen-on-the-port-defined-b)
 
 This project aims to create a python snippet that pushes a HTTP task to a cloud task queue.
 This task should then be picked up and processed, returning the outcome to the user/add the outcome to a db
