@@ -11,7 +11,7 @@ def create_task(project, location, queue, handler_url, target_url, task_name):
     parent = client.queue_path(project, location, queue)
 
     # Prepare the payload that will be sent to your task handler.
-    payload = json.dumps({"url": target_url}).encode()
+    payload = json.dumps({"url": target_url, "job_id": "456"}).encode()
 
     # Construct the task.
     task = {
@@ -39,12 +39,14 @@ def create_task(project, location, queue, handler_url, target_url, task_name):
 
 
 if __name__ == "__main__":
+    task_num = 11
+    
     project = "async-link-checker"
     location = "europe-west2"
     queue = "my-task-queue"
     handler_url = "https://async-task-handler-319415279837.europe-west2.run.app/task-handler"
-    target_url = "https://example.com"  # The URL you want your task handler to GET.
-    task_name = 'projects/async-link-checker/locations/europe-west2/queues/my-task-queue/tasks/task-133'
+    target_url = "https://google.com"  # The URL you want your task handler to GET.
+    task_name = f'projects/async-link-checker/locations/europe-west2/queues/my-task-queue/tasks/task{task_num}'
 
 
     create_task(project, location, queue, handler_url, target_url, task_name)

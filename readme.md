@@ -43,3 +43,10 @@ gcloud tasks create-http-task \
     --payload='{"url": "https://example.com"}' \
     --location=europe-west2 \
     --project=async-link-checker
+
+QUICK BUILD + DEPLOY
+docker build --platform linux/amd64 -t gcr.io/async-link-checker/async-task-handler .;docker push gcr.io/async-link-checker/async-task-handler;gcloud run deploy async-task-handler \
+    --image gcr.io/async-link-checker/async-task-handler \
+    --region europe-west2 \
+    --platform managed \
+    --allow-unauthenticated
