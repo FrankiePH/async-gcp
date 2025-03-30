@@ -1,7 +1,5 @@
 import json
 from google.cloud import tasks_v2
-from google.protobuf import timestamp_pb2
-import datetime
 
 def create_task(project, location, queue, handler_url, target_url, task_name):
     # Create a Cloud Tasks client.
@@ -11,7 +9,7 @@ def create_task(project, location, queue, handler_url, target_url, task_name):
     parent = client.queue_path(project, location, queue)
 
     # Prepare the payload that will be sent to your task handler.
-    payload = json.dumps({"url": target_url, "job_id": "456"}).encode()
+    payload = json.dumps({"url": target_url, "job_id": "test1"}).encode()
 
     # Construct the task.
     task = {
@@ -24,28 +22,22 @@ def create_task(project, location, queue, handler_url, target_url, task_name):
         "name": task_name
     }
 
-
-    # Optionally, specify a task name (must be in full resource format).
-    # If you want to schedule the task a few seconds in the future, you can do so.
-    # For immediate execution, you can skip this.
-    # schedule_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=10)
-    # timestamp = timestamp_pb2.Timestamp()
-    # timestamp.FromDatetime(schedule_time)
-    # task["schedule_time"] = timestamp
-
     # Create the task.
     response = client.create_task(request={"parent": parent, "task": task})
     print("Task created:", response.name)
 
 
 if __name__ == "__main__":
-    task_num = 11
+    # create UUID for task
+    import shortuuid
+    task_num = shortuuid.uuid()
     
-    project = "async-link-checker"
+    project = "async-link-checker" 
     location = "europe-west2"
     queue = "my-task-queue"
     handler_url = "https://async-task-handler-319415279837.europe-west2.run.app/task-handler"
-    target_url = "https://google.com"  # The URL you want your task handler to GET.
+    #handler_url = "https://europe-west2-async-link-checker.cloudfunctions.net/async-task-handler"
+    target_url = "https://example.com"  # The URL you want your task handler to GET.
     task_name = f'projects/async-link-checker/locations/europe-west2/queues/my-task-queue/tasks/task{task_num}'
 
 
